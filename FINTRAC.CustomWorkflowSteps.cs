@@ -45,7 +45,7 @@ namespace FINTRAC.CustomWorkflowSteps
                         Conditions =
                         {
                             new ConditionExpression("fintrac_organizationnumber", ConditionOperator.Equal, orgNumber),
-                            new ConditionExpression("statecode", ConditionOperator.Equal, 0) // Only active accounts
+                            //new ConditionExpression("statecode", ConditionOperator.Equal, 0) // Only active accounts
                         }
                     }
                 };
