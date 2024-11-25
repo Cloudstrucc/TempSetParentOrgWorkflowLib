@@ -1,0 +1,86 @@
+trigger:
+- none
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '18.x'  # Updated to Node.js 18
+  displayName: 'Install Node.js'
+
+- script: |
+    # Initialize package.json if it doesn't exist
+    npm init -y
+    
+    # Install Lighthouse CI globally
+    npm install -g @lhci/cli@latest
+  displayName: 'Install dependencies'
+
+- script: |
+    # Create lighthouse config file
+    cat > lighthouserc.js << 'EOF'
+    module.exports = {
+      ci: {
+        collect: {
+          numberOfRuns: 1,
+          url: [
+            'https://https://re-portal.powerappsportals.com/en/'
+          ]
+        },
+        assert: {
+          assertions: {
+            'categories:accessibility': ['error', {minScore: 0.9}],
+            'categories:best-practices': ['error', {minScore: 0.9}],
+            'categories:performance': ['error', {minScore: 0.8}]
+          }
+        },
+        upload: {
+          target: 'filesystem',
+          outputDir: './lighthouse-results'
+        }
+      }
+    };
+    EOF
+  displayName: 'Create Lighthouse config'
+
+- script: |
+    # Create results directory
+    mkdir -p lighthouse-results
+    
+    # Run Lighthouse CI
+    lhci autorun
+  displayName: 'Run Lighthouse CI'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: './lighthouse-results'
+    artifact: 'lighthouse-reports'
+    publishLocation: 'pipeline'
+  displayName: 'Publish Lighthouse Reports'
+  condition: succeededOrFailed()
+
+# Optional: Create a summary report
+- script: |
+    echo "# Lighthouse Results" > lighthouse-summary.md
+    echo "## Scan completed at $(date)" >> lighthouse-summary.md
+    echo "### Results for each page:" >> lighthouse-summary.md
+    for file in lighthouse-results/*.json; do
+      if [ -f "$file" ]; then
+        echo "#### $(basename $file)" >> lighthouse-summary.md
+        echo "\`\`\`json" >> lighthouse-summary.md
+        cat "$file" | jq '{url: .requestedUrl, performance: .categories.performance.score, accessibility: .categories.accessibility.score, "best-practices": .categories["best-practices"].score, seo: .categories.seo.score}' >> lighthouse-summary.md
+        echo "\`\`\`" >> lighthouse-summary.md
+      fi
+    done
+  displayName: 'Generate Summary'
+  condition: succeededOrFailed()
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: 'lighthouse-summary.md'
+    artifact: 'lighthouse-summary'
+    publishLocation: 'pipeline'
+  displayName: 'Publish Summary'
+  condition: succeededOrFailed()
