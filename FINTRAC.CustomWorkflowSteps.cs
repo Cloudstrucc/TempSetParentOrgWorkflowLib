@@ -111,7 +111,7 @@ namespace FINTRAC.CustomWorkflowSteps
                 // Query for account with matching organization number
                 QueryExpression query = new QueryExpression("account")
                 {
-                    ColumnSet = new ColumnSet("contactid", "name"),
+                    ColumnSet = new ColumnSet("primarycontactid", "name"),
                     Criteria = new FilterExpression
                     {
                         FilterOperator = LogicalOperator.And,
