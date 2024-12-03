@@ -27,8 +27,7 @@ C:\Users\Fred\source\repos\FINTRAC.CustomWorkflowSteps\bin\Debug\System.Text.Enc
 C:\Users\Fred\source\repos\FINTRAC.CustomWorkflowSteps\bin\Debug\System.Text.Json.xml
 C:\Users\Fred\source\repos\FINTRAC.CustomWorkflowSteps\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\Fred\source\repos\FINTRAC.CustomWorkflowSteps\bin\Debug\System.ValueTuple.xml
-C:\Users\Fred\source\repos\FINTRAC.CustomWorkflowSteps\obj\Debug\FINTRAC.CustomWorkflowSteps.csproj.AssemblyReference.cache
 C:\Users\Fred\source\repos\FINTRAC.CustomWorkflowSteps\obj\Debug\FINTRAC.CustomWorkflowSteps.csproj.CoreCompileInputs.cache
-C:\Users\Fred\source\repos\FINTRAC.CustomWorkflowSteps\obj\Debug\FINTRAC..FECA80CA.Up2Date
 C:\Users\Fred\source\repos\FINTRAC.CustomWorkflowSteps\obj\Debug\FINTRAC.CustomWorkflowSteps.dll
 C:\Users\Fred\source\repos\FINTRAC.CustomWorkflowSteps\obj\Debug\FINTRAC.CustomWorkflowSteps.pdb
+C:\Users\Fred\source\repos\FINTRAC.CustomWorkflowSteps\obj\Debug\FINTRAC.CustomWorkflowSteps.csproj.CopyComplete
